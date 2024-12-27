@@ -1,0 +1,12 @@
+(lang dune 3.16)
+(name eml)
+(generate_opam_files true)
+(source (github ponyatov/eml))
+(authors "Dmitry Ponyatov <dponyatov@gmail.com>")
+(license MIT)
+(package
+ (name eml)
+ (synopsis "Embedded MetaLanguage")
+ (description "embedded targets code generator")
+ (depends ocaml dune utop ocamlformat)
+ )
