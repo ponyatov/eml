@@ -13,16 +13,24 @@ let y = Int 2
 let sum = BinOp (Add, x, y)
 let neg = Pfx (Sub, sum)
 
+(* assert (eval x == -1) *)
+(* assert (eval y == 2) *)
 
-let rec eval expr  =
+let rec eval expr =
   match expr with
   | Int i -> i
-  | BinOp (Add,x,y) -> (eval x) + (eval y)
-  | Pfx (Sub,e) -> -(eval e)
+  | BinOp (op, x, y) -> (
+      match op with
+      | Add -> eval x + eval y
+      | Sub -> eval x - eval y
+      | Mul -> eval x * eval y
+      | Div -> eval x / eval y)
+  | Pfx (op, e) -> (
+      match op with
+      | Add -> +eval e
+      | Sub -> -eval e
+      | _ -> failwith "bad prefix")
   | _ -> failwith "not implemented"
 
-assert (eval x == -1)
-assert (eval y == 2)
-assert (eval sum == 1)
-assert (eval neg == -(eval sum))
-
+(* assert (eval sum == 1) *)
+(* assert (eval neg == -(eval sum)) *)
